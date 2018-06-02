@@ -14,5 +14,6 @@ export default {
     .title {
         text-align: center;
         font-weight: 100;
+        padding-top: 50px;
     }
 </style>
