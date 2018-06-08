@@ -1,3 +1,247 @@
 <date>June 8, 2018</date>
-<h2>Testing with Go</h2>
-<p>This post will treat testing in the <b>Go</b> language.</p>
+<h2>TDD with Go</h2>
+<p>
+    This post explains the basics of <b>Test Driven Developmen</b> (TDD) in the <b>Go</b> language.
+    We'll start with the basics of TDD and then cover a simple example with the factorial function. 
+</p>
+<h3>The Basics of TDD</h3>
+<p>
+    The core idea of TDD is to write tests prior to writing code. In contrast to
+    <b>Test First Development</b>, TDD is an iterative process, which focusses on one test at a time. 
+    There are 3 steps to each cycle:
+</p>
+<ul>
+    <li>
+        <span style="color: red">Red</span> - Add a new test for which the code doesn't exist yet. 
+        Obviously running the test after this phase will result in a failing test.
+    </li>
+    <li>
+        <span style="color: green">Green</span> - Add the minimum amount of code to satisfy the test. 
+        At this point all tests should succeed.
+    </li>
+    <li>Refactor - Improve the code without adding functionality</li>
+</ul>
+<p>
+    The cycle is also known as <b>red-green-refactor</b>. After each of these steps, 
+    the tests are executed again. This results in good code coverage and incrementally 
+    tested code, thus arguably better code quality.
+</p>
+<h3>An Example</h3>
+<p>
+    Let's have a look at a concrete example. Mathematical functions are a simple way
+    of getting to know the concept of testing, since they can be modelled without 
+    including any dependencies. We pick the factorial function, wich is most commonly 
+    denoted by <b>n!</b>. The factorial is a mathematical function which takes the 
+    product of all positive integers up to the specified parameter n. Let's look at a few 
+    examples 
+</p>
+<pre><code class="bash"># Definition of factorial
+$ n! = n * (n - 1) * (n - 2) * ... * 2 * 1
+# Alternative definition
+$ n! = n * (n - 1)!
+# 0 is a special value
+$ 0! = 1
+$ 1! = 1
+$ 2! = 2 * 1 = 1
+$ 3! = 3 * 2 * 1 = 6
+$ ...
+$ 10! = 10 * 9 * 8 * ... * 2 * 1 = 3'628'800
+</code></pre>
+<p>
+    Without further ado we setup our <b>main.go</b>, which looks as follows
+</p>
+<pre><code>// file: main.go
+
+package main
+
+func main() {
+    // Insert code
+}
+</code></pre>
+<p>
+    And our test file <b>main_test.go</b>
+</p>
+<pre><code class="go">// file: main_test.go
+
+package main
+
+// Empty for now
+</code></pre>
+<p>
+    Like obedient TDD developers we'll start with a test for our 
+    <b>factorial</b> function. <b>0! = 1</b> is a special value of this function.
+    Let's start there
+</p>
+<pre><code>// file: main_test.go
+
+package main
+
+import (
+    "testing"
+)
+
+func TestZero(t *testing.T) {
+    res := factorial(0)
+
+	if 1 != res {
+		t.Errorf("Expected 0! to be 1, got %d", res)
+	}
+}
+</code></pre>
+<p>
+    With TDD in mind, we run the tests which returns the anticipated output, an error
+</p>
+<pre><code class="bash">$ go test
+./main_test.go:8: undefined: factorial
+FAIL    test [build failed]
+</code></pre>
+<p>
+    Right now we're in the <span style="color: red">red</span> phase. 
+    Our tests are failing. The next step is to add as little functionality
+    as possible to make our tests pass. We adapt out <b>main.go</b> as 
+    follows
+</p>
+<pre><code>// file: main.go
+// ...
+
+func factorial(num int) int {
+    return 0
+}</code></pre>
+<p>
+    Now the code compiles and we don't get that compiler error anymore. Yet,
+    our software doesn't work as expected yet.
+</p>
+<pre><code class="bash">$ go test
+--- FAIL: TestZero (0.00s)
+main_test.go:10: Expected 0! to be 1, got 0
+FAIL
+exit status 1
+FAIL    test      0.006s
+</code></pre>
+<p>
+    This step is crucial to TDD, since it assures us that we aren't shooting shoot 
+    blanks. In other words, our test actually checks the functionality instead of
+    giving us false positives. Let's fix that really quick
+</p>
+<pre><code>// file: main.go
+// ...
+
+func factorial(num int) int {
+    return 1
+}</code></pre>
+<p>
+    Now we run our test again and see <span stlye="color: green">green</span>.
+</p>
+<pre><code class="bash">$ go test
+PASS
+ok      test      0.006s
+</code></pre>
+<p>
+    The code looks quite simple and neat, hence we won't go into the refactor step
+    for now. Phew! Let's keep the momentum and move to the next value. <b>1! = 1</b> already
+    works - following the protocol, we first make it fail
+</p>
+<pre><code>// file: main_test.go
+// ...
+
+func TestOne(t *testing.T) {
+    res := factorial(1)
+    if 0 != res {
+        t.Errorf("Expected 0! to be 1, got %d", res)
+    }
+}
+</code></pre>
+<p>
+    And fix it again
+</p>
+<pre><code>// file: main_test.go
+// ...
+
+func TestOne(t *testing.T) {
+    res := factorial(1)
+    if 1 != res {
+        t.Errorf("Expected 0! to be 1, got %d", res)
+    }
+}
+</code></pre>
+<p>
+    For the next value we'll add a more generic test case
+</p>
+<pre><code>// file: main_test.go
+// ...
+
+func TestN(t *testing.T) {
+    var prov = []struct {
+        n   int
+        exp int
+    }{
+        {2, 2},
+    }
+
+    for _, tt := range prov {
+        act := factorial(tt.n)
+
+        if act != tt.exp {
+            t.Errorf("Expected %d! to be %d, got %d", tt.n, tt.exp, act)
+        }
+    }
+}
+</code></pre>
+<p>
+    Which fails. Now the corresponding functionality
+</p>
+<pre><code>// file: main.go
+
+func factorial(num int) int {
+    if num <= 1 {
+        return 1
+    }
+
+    return 2
+}</code></pre>
+<p>
+    Fine, we'll stop with the constants now. Let's implement our function
+    recursively as in the second definition <b>n! = n * (n - 1)!</b>. We can break
+    the current implementation with the test for <b>n = 3</b>. The test can now
+    be extended as such
+</p>
+<pre><code>// file: main_test.go
+// ...
+
+func TestN(t *testing.T) {
+    var prov = []struct {
+        n   int
+        exp int
+    }{
+        {2, 2},
+        {3, 6}, // We added this
+    }
+    for _, tt := range prov {
+        act := factorial(tt.n)
+
+        if act != tt.exp {
+            t.Errorf("Expected %d! to be %d, got %d", tt.n, tt.exp, act)
+        }
+    }
+}
+</code></pre>
+<p><span style="color: red">Red</span>. Now for the actual code</p>
+<pre><code>// file: main.go
+func factorial(num int) int {
+    if num &lt;= 1 {
+        return 1
+    }
+
+    return num * factorial(num-1)
+}
+</code></pre>
+<p>
+    And so on. I think you get the point
+</p>
+
+<h3>Conclusion</h3>
+<p>
+    <b>TDD</b> enables developers to achieve a <b>high test coverage</b> quickly
+    and be more aware of what testable code looks like. It's a great way
+    for <em>getting used to testing</em>.
+</p>
