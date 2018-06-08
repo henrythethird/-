@@ -4,15 +4,17 @@
         <section class="page">
             <router-view />
         </section>
+        <Footer />
     </div>
 </template>
 
 <script>
 import Header from '@/components/Header'
+import Footer from '@/components/Footer'
 
 export default {
     name: 'app',
-    components: { Header }
+    components: { Header, Footer }
 }
 </script>
 
@@ -20,6 +22,7 @@ export default {
     .page {
         max-width: 600px;
         margin: auto;
+        padding: 30px;
     }
 
     * {
@@ -39,6 +42,10 @@ export default {
         font-size: inherit;
     }
 
+    sup, sub {
+        font-size: 75%;
+    }
+
     a {
         transition: color 100ms ease-in-out;
         cursor: pointer;
@@ -48,7 +55,11 @@ export default {
         }
     }
 
-    p, blockquote {
+    ul ul {
+        margin-left: 20px;
+    }
+
+    p, blockquote, li {
         line-height: 1.7;
         font-size: 18px;
         color: #4D4D4D;
@@ -70,7 +81,7 @@ export default {
         }
     }
 
-    h1, h2, h3, h4, h5, h6, p, blockquote, hr {
+    h1, h2, h3, h4, h5, h6, p, blockquote, hr, pre {
         margin-bottom: 1em;
     }
 

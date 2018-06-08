@@ -1,14 +1,14 @@
 <template>
     <section>
-        <Post />
+        <Preview title="testing" />
     </section>
 </template>
 <script>
-import Post from '@/components/Post'
+import Preview from '@/components/Preview'
 
 export default {
   name: 'Index',
-  components: { Post }
+  components: { Preview }
 }
 </script>
 <style scoped lang="scss">
