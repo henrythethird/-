@@ -49,6 +49,13 @@ export default {
             font-size: 15px;
             color: gray;
         }
+
+        date {
+            font-weight: 900;
+            text-transform: uppercase;
+            opacity: 0.6;
+            font-size: 13px;
+        }
     }
 
     .content {

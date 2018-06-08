@@ -1,6 +1,7 @@
 <template>
     <section>
-        <Preview title="testing" />
+        <Preview title="gin_testing" />
+        <Preview title="go_testing" />
     </section>
 </template>
 <script>

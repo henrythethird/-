@@ -1,3 +1,4 @@
+<date>June 8, 2018</date>
 <h2>Testing with Gin</h2>
 <p>
     Cheers! This blog post is about writing integration tests for a Gin 
@@ -112,6 +113,19 @@ func TestPingRoute(t *testing.T) {
     This is all there is to it code-wise. The rest of the magic is framework independent.
     As shown in the example, the <b>http</b><sup>2</sup> package can be used to fire request against your endpoints.
 </p>
+<p>The following command can be used to execute the test</p>
+<pre><code class="bash">$ go test
+[GIN-debug] [WARNING] Creating an Engine instance with the Logger and Recovery middleware already attached.
+
+[GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
+    - using env:   export GIN_MODE=release
+    - using code:  gin.SetMode(gin.ReleaseMode)
+
+[GIN-debug] GET    /ping                     --> test.pingEndpoint (3 handlers)
+[GIN] 2018/06/08 - 10:40:06 | 200 |         103µs |       127.0.0.1 | GET      /ping
+PASS
+ok      test      0.022s</code></pre>
+
 <h3>Good Practices</h3>
 <p>
     Here are a few guidelines when doing integration tests together with a http framework:

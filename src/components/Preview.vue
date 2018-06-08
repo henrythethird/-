@@ -1,6 +1,6 @@
 <template>
     <router-link class="preview" :to="{ name: 'detail', params: { title } }">
-        <Post :title="title" class="post" />
+        <Post :title="title" />
         <div class="after">
             <button class="button">Continue Reading</button>
         </div>
