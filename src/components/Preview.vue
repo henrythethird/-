@@ -1,6 +1,9 @@
 <template>
     <router-link class="preview" :to="{ name: 'detail', params: { title } }">
-        <Post :title="title" />
+        <Post :title="title" class="post" />
+        <div class="after">
+            <button class="button">Continue Reading</button>
+        </div>
     </router-link>
 </template>
 <script>
@@ -14,28 +17,40 @@ export default {
 </script>
 <style scoped lang="scss">
     .preview {
-        position: relative;
         display: block;
-        max-height: 400px;
-        overflow: hidden;
         border-bottom: 1px solid #f0f0f0;
         padding-bottom: 30px;
         margin-bottom: 30px;
 
-        &::after {
-            content: '...';
-            text-align: center;
-            font-size: 20px;
-            position: absolute;
-            bottom: 0;
-            height: 60px;
-            left: 0;
-            right: 0;
-            background-color: white;
-        }
-
         &:last-child {
             border: 0;
         }
+
+        .post {
+            max-height: 600px;
+            overflow: hidden;
+        }
     }
+
+    .after {
+        padding: 20px;
+        text-align: center;
+    }
+
+    .button {
+        border: 2px solid #f0f0f0;
+        border-radius: 18px;
+        padding: 5px 10px;
+        cursor: pointer;
+        transition: color 100ms ease-in-out,
+                    background-color 100ms ease-in-out,
+                    border-color 100ms ease-in-out;
+
+        &:hover {
+            background-color: #008AFF;
+            color: white;
+            border-color: transparent;
+        }
+    }
+
 </style>
