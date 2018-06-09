@@ -1,5 +1,8 @@
 <template>
-    <article class="post" ref="post" v-html="article"></article>
+    <main>
+        <article class="post" ref="post" v-html="article"></article>
+        <p v-if="error">Couldn't find the article :-(</p>
+    </main>
 </template>
 <script>
 import axios from 'axios'
@@ -12,7 +15,8 @@ export default {
   props: ['title'],
   data () {
       return {
-          article: ''
+          article: '',
+          error: false
       }
   },
   mounted () {
@@ -21,7 +25,11 @@ export default {
             this.article = data
             
             setTimeout(this.refreshSyntax, 50)
+        }).catch((e) => {
+            this.error = true
         })
+        
+        
   },
   methods: {
       refreshSyntax () {

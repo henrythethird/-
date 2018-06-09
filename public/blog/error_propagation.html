@@ -1,0 +1,225 @@
+<date>June 9, 2018</date>
+<h2>Go Error Propagation</h2>
+<p>
+    Error handling is a vital part of any programming language. There's 
+    any number of things that can go wrong if you interact with the outside 
+    world. A file can be missing or corrupt, an endpoint temporarily unreachable,
+    a database server down, etc. Things can go wrong everywhere.
+    Now in order to keep the systems we work on maintainable and user friendly,
+    we have to handle these errors appropriately.
+</p>
+<p>
+    Different languages offer different mechanisms for handling errors.
+    Most modern programming languages, for example, include a feature called 
+    <b>exceptions</b> as a convenient
+    way to propagate errors through <b>multiple</b>
+    layers. This feature is missing in Go - and that's on purpose.
+</p>
+<p>
+    In the following sections we'll explore some common methods for avoiding
+    error handling. I like call these <b>anti-patterns</b> or <b>"don'ts"</b>
+</p>
+<h2>Method 1: Ignore</h2>
+<p>
+    The first anti-pattern in error handling - and this is <b>not</b> limited 
+    to go - is ignoring them alltogether. Here is a piece of code that makes excessive
+    use of the underscore (<b>_</b>). The underscore, also known as the 
+    <b>blank identifier</b>, is used when calling functions with multiple
+    return values to discard one of these values.
+</p>
+<p>
+    Let's have a look at the example
+</p>
+<pre><code>// file: main.go
+
+package main
+
+import (
+    "io/ioutil"
+    "log"
+    "net/http"
+)
+
+func main() {
+    cont := doWork("google.com")
+
+    log.Println(cont)
+}
+
+func doWork(host string) string {
+    client := &amp;http.Client{}
+
+    req, _ := http.NewRequest("GET", host, nil)
+
+    req.Header.Add("Accept", "application/json")
+    req.AddCookie(&amp;http.Cookie{Name: "ID", Value: "1B2EB10C8ADDE70440A2EFBA15C2C6CD"})
+
+    resp, _ := client.Do(req)
+
+    b, _ := ioutil.ReadAll(resp.Body)
+
+    return string(b)
+}</code></pre>
+<p>
+    Looks good enough, right? So there is this <b>doWork</b> function that calls an 
+    API endpoint with a cookie, then reads the contents and returns them.
+    Now running this will result in a <b>SIGSEGV</b>, a segmentation fault.
+    Meaning, that one of the errors in the code is not <b>nil</b> and the 
+    corresponding unignored value therefore is. 
+</p>
+<p>
+    We clearly don't want code like this in our production systems. Let's try 
+    something different.
+</p>
+
+<h2>Method 2: Delegate</h2>
+<p>
+    Since go is <em>annoying</em> and doesn't let us propagate the errors to
+    the next layer, we can just try replicate that missing feature ourselves.
+    What if we <b>delegate</b> the error to the calling function? We can just
+    "offshore" the work to the poor fellow who will be interacting with our API.
+</p>
+<p>
+    Let's have a peak what that might look like with our example
+</p>
+<pre><code>// file: main.go
+
+// ...
+
+func main() {
+    cont, err := doWork("google.com")
+
+    if err != nil {
+        log.Panicln(err)
+    }
+
+    log.Println(cont)
+}
+
+func doWork(host string) (string, error) {
+    client := &amp;http.Client{}
+
+    req, err := http.NewRequest("GET", host, nil)
+
+    if err != nil {
+        return "", err
+    }
+
+    req.Header.Add("Accept", "application/json")
+    req.AddCookie(&amp;http.Cookie{Name: "ID", Value: "1B2EB10C8ADDE70440A2EFBA15C2C6CD"})
+
+    resp, err := client.Do(req)
+
+    if err != nil {
+        return "", err
+    }
+
+    b, err := ioutil.ReadAll(resp.Body)
+
+    if err != nil {
+        return "", err
+    }
+
+    return string(b), nil
+}
+</code></pre>
+<p>
+    We've added error delegation inbetween the business logic. The 
+    caller now gets a <em>mysterious</em> error message together with a trace
+    that tells her where the error is originating. 
+</p>
+<pre><code class="bash">
+$ go run main.go
+panic: Get google.com: unsupported protocol scheme ""
+</code></pre>
+<p>
+    This is marginally more useful
+    than just crashing, I admit it, yet, not user friendly at all. So how can
+    we improve that?
+</p>
+
+<h2>Improvements</h2>
+<p>
+    Let's say Lisa is interacting with our system. Now she's getting an error 
+    from our API. What Lisa would like to know is
+</p>
+<blockquote>
+    How can I adjust the input value to get rid of the error? What am I doing wrong?
+</blockquote>
+<p>
+    This is a difficult question to answer. What we can easily answer is
+</p>
+<blockquote>
+    What part of the system was I interacting with that produced the error?
+</blockquote>
+<p>
+    Let's glance at an example
+</p>
+<pre><code>// file: main.go
+
+// ...
+
+func doWork(host string) (string, error) {
+    client := &amp;http.Client{}
+
+    req, err := http.NewRequest("GET", host, nil)
+
+    if err != nil {
+        return "", fmt.Errorf("Failed to create a new request: %v", err)
+    }
+
+    req.Header.Add("Accept", "application/json")
+    req.AddCookie(&amp;http.Cookie{Name: "ID", Value: "1B2EB10C8ADDE70440A2EFBA15C2C6CD"})
+
+    resp, err := client.Do(req)
+
+    if err != nil {
+        return "", fmt.Errorf("Failed to execute the request with host \"%s\": %v", host, err)
+    }
+
+    b, err := ioutil.ReadAll(resp.Body)
+
+    if err != nil {
+        return "", fmt.Errorf("Failed to read from request body: %v", err)
+    }
+
+    return string(b), nil
+}
+</code></pre>
+<p>And the corresponding output</p>
+<pre><code class="bash">$ go run main.go
+panic: Failed to execute the request with host "google.com": Get google.com: unsupported protocol scheme ""
+</code></pre>
+<p>
+    Now Lisa knows that we were trying to dispatch the request as the error happened. 
+    Together with the trace, I'd argue, she has a better chance of finding out what
+    changes she has to make to fix her code.
+</p>
+
+<h2>Conclusion</h2>
+<p>
+    There is no magic formula to getting error handling right. We
+    just have consider the poor person interacting with our code.
+    Make it a better experience for them.
+</p>
+<p>
+    Here are a few <em>best practices</em> around error handling. Some of them
+    not covered by the scope of this article.
+</p>
+<ul>
+    <li>Try to give the programmer a hint of where the code is failing</li>
+    <li><b>Always</b> include the trace for internal APIs</li>
+    <li>Hide error information from end users. This might expose a security flaw in your system</li>
+    <li>
+        Try to fail softly. Some errors can be recovered from.
+        <ul>
+            <li>Few errors should render a service unfunctional</li>
+            <li>Try to use default for example</li>
+            <li>
+                If, for example, the billing service is unresponsive, simply 
+                display a message instead of a internal server error
+            </li>
+        </ul>
+    </li>
+    
+</ul>
