@@ -22,7 +22,7 @@ export default {
     .page {
         max-width: 600px;
         margin: auto;
-        padding: 30px;
+        padding: 15px;
     }
 
     * {
@@ -55,8 +55,12 @@ export default {
         }
     }
 
+    ul {
+        margin-left: 10px;
+    }
+
     ul ul {
-        margin-left: 20px;
+        margin-left: 18px;
     }
 
     p, blockquote, li {

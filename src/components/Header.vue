@@ -38,8 +38,4 @@ export default {
             padding: 10px 0;
         }
     }
-
-    .image {
-        width: 360px;
-    }
 </style>
