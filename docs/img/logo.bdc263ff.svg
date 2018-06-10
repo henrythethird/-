@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="203px" height="73px" viewBox="0 0 203 73" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+    <title>logo</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Artboard" transform="translate(-137.000000, -123.000000)">
+            <g id="logo" transform="translate(133.000000, 117.000000)">
+                <text id="kpat.io" stroke="#000000" fill="#FFFFFF" font-family="OpenSans-SemiBold, Open Sans" font-size="60" font-weight="500">
+                    <tspan x="9" y="64">kpat.io</tspan>
+                </text>
+                <g id="Hat" transform="translate(15.375180, 16.462335) rotate(-10.000000) translate(-15.375180, -16.462335) translate(1.875180, 5.962335)">
+                    <path d="M0.882324641,18.5 L26.9576983,18.5" id="Line" stroke="#000000"></path>
+                    <rect id="Rectangle" stroke="#000000" fill="#000000" x="7.5" y="3.5" width="13" height="14"></rect>
+                    <ellipse id="Oval" fill="#000000" cx="13.5890584" cy="3.42045486" rx="7.41094161" ry="2.5"></ellipse>
+                </g>
+                <g id="Group" transform="translate(31.000000, 27.000000)" stroke="#000000">
+                    <g id="beard" transform="translate(2.000000, 1.000000)">
+                        <g id="Group-2">
+                            <g id="Group" transform="translate(5.761535, 10.711309) rotate(-25.000000) translate(-5.761535, -10.711309) translate(2.413709, 3.211309)" stroke-width="0.5">
+                                <path d="M0.956521739,3 C5.61797819,3 5.73913043,13 5.73913043,13" id="Path-2" transform="translate(3.347826, 8.000000) scale(-1, 1) rotate(-20.000000) translate(-3.347826, -8.000000) "></path>
+                                <path d="M0.956521739,2 C5.61797819,2 5.73913043,12 5.73913043,12" id="Path-2" transform="translate(3.347826, 7.000000) scale(-1, 1) rotate(-25.000000) translate(-3.347826, -7.000000) "></path>
+                            </g>
+                            <g id="Group" transform="translate(5.595083, 10.958982) rotate(-25.000000) translate(-5.595083, -10.958982) translate(1.768996, 2.958982)" stroke-width="0.5">
+                                <path d="M1.09307202,3.28769901 C6.41998454,3.28769901 6.55843214,14.2466957 6.55843214,14.2466957" id="Path-2" transform="translate(3.825752, 8.767197) scale(-1, 1) rotate(-20.000000) translate(-3.825752, -8.767197) "></path>
+                                <path d="M1.09307202,2.19179934 C6.41998454,2.19179934 6.55843214,13.150796 6.55843214,13.150796" id="Path-2" transform="translate(3.825752, 7.671298) scale(-1, 1) rotate(-25.000000) translate(-3.825752, -7.671298) "></path>
+                            </g>
+                            <g id="Group" transform="translate(5.595083, 11.958982) rotate(-30.000000) translate(-5.595083, -11.958982) translate(1.768996, 3.958982)" stroke-width="0.5">
+                                <path d="M1.09307202,3.28769901 C6.41998454,3.28769901 6.55843214,14.2466957 6.55843214,14.2466957" id="Path-2" transform="translate(3.825752, 8.767197) scale(-1, 1) rotate(-20.000000) translate(-3.825752, -8.767197) "></path>
+                                <path d="M1.09307202,2.19179934 C6.41998454,2.19179934 6.55843214,13.150796 6.55843214,13.150796" id="Path-2" transform="translate(3.825752, 7.671298) scale(-1, 1) rotate(-25.000000) translate(-3.825752, -7.671298) "></path>
+                            </g>
+                        </g>
+                    </g>
+                    <g id="beard" transform="translate(6.500000, 12.500000) rotate(5.000000) translate(-6.500000, -12.500000) translate(1.000000, 1.000000)">
+                        <g id="Group-2">
+                            <g id="Group" transform="translate(5.761535, 10.711309) rotate(-25.000000) translate(-5.761535, -10.711309) translate(2.413709, 3.211309)" stroke-width="0.5">
+                                <path d="M0.956521739,3 C5.61797819,3 5.73913043,13 5.73913043,13" id="Path-2" transform="translate(3.347826, 8.000000) scale(-1, 1) rotate(-20.000000) translate(-3.347826, -8.000000) "></path>
+                                <path d="M0.956521739,2 C5.61797819,2 5.73913043,12 5.73913043,12" id="Path-2" transform="translate(3.347826, 7.000000) scale(-1, 1) rotate(-25.000000) translate(-3.347826, -7.000000) "></path>
+                            </g>
+                            <g id="Group" transform="translate(5.595083, 10.958982) rotate(-25.000000) translate(-5.595083, -10.958982) translate(1.768996, 2.958982)" stroke-width="0.5">
+                                <path d="M1.09307202,3.28769901 C6.41998454,3.28769901 6.55843214,14.2466957 6.55843214,14.2466957" id="Path-2" transform="translate(3.825752, 8.767197) scale(-1, 1) rotate(-20.000000) translate(-3.825752, -8.767197) "></path>
+                                <path d="M1.09307202,2.19179934 C6.41998454,2.19179934 6.55843214,13.150796 6.55843214,13.150796" id="Path-2" transform="translate(3.825752, 7.671298) scale(-1, 1) rotate(-25.000000) translate(-3.825752, -7.671298) "></path>
+                            </g>
+                            <g id="Group" transform="translate(5.595083, 11.958982) rotate(-30.000000) translate(-5.595083, -11.958982) translate(1.768996, 3.958982)" stroke-width="0.5">
+                                <path d="M1.09307202,3.28769901 C6.41998454,3.28769901 6.55843214,14.2466957 6.55843214,14.2466957" id="Path-2" transform="translate(3.825752, 8.767197) scale(-1, 1) rotate(-20.000000) translate(-3.825752, -8.767197) "></path>
+                                <path d="M1.09307202,2.19179934 C6.41998454,2.19179934 6.55843214,13.150796 6.55843214,13.150796" id="Path-2" transform="translate(3.825752, 7.671298) scale(-1, 1) rotate(-25.000000) translate(-3.825752, -7.671298) "></path>
+                            </g>
+                        </g>
+                    </g>
+                    <g id="beard" transform="translate(12.500000, 12.500000) scale(-1, 1) translate(-12.500000, -12.500000) translate(7.000000, 1.000000)">
+                        <g id="Group-2">
+                            <g id="Group" transform="translate(5.761535, 10.711309) rotate(-25.000000) translate(-5.761535, -10.711309) translate(2.413709, 3.211309)" stroke-width="0.5">
+                                <path d="M0.956521739,3 C5.61797819,3 5.73913043,13 5.73913043,13" id="Path-2" transform="translate(3.347826, 8.000000) scale(-1, 1) rotate(-20.000000) translate(-3.347826, -8.000000) "></path>
+                                <path d="M0.956521739,2 C5.61797819,2 5.73913043,12 5.73913043,12" id="Path-2" transform="translate(3.347826, 7.000000) scale(-1, 1) rotate(-25.000000) translate(-3.347826, -7.000000) "></path>
+                            </g>
+                            <g id="Group" transform="translate(5.595083, 10.958982) rotate(-25.000000) translate(-5.595083, -10.958982) translate(1.768996, 2.958982)" stroke-width="0.5">
+                                <path d="M1.09307202,3.28769901 C6.41998454,3.28769901 6.55843214,14.2466957 6.55843214,14.2466957" id="Path-2" transform="translate(3.825752, 8.767197) scale(-1, 1) rotate(-20.000000) translate(-3.825752, -8.767197) "></path>
+                                <path d="M1.09307202,2.19179934 C6.41998454,2.19179934 6.55843214,13.150796 6.55843214,13.150796" id="Path-2" transform="translate(3.825752, 7.671298) scale(-1, 1) rotate(-25.000000) translate(-3.825752, -7.671298) "></path>
+                            </g>
+                            <g id="Group" transform="translate(5.595083, 11.958982) rotate(-30.000000) translate(-5.595083, -11.958982) translate(1.768996, 3.958982)" stroke-width="0.5">
+                                <path d="M1.09307202,3.28769901 C6.41998454,3.28769901 6.55843214,14.2466957 6.55843214,14.2466957" id="Path-2" transform="translate(3.825752, 8.767197) scale(-1, 1) rotate(-20.000000) translate(-3.825752, -8.767197) "></path>
+                                <path d="M1.09307202,2.19179934 C6.41998454,2.19179934 6.55843214,13.150796 6.55843214,13.150796" id="Path-2" transform="translate(3.825752, 7.671298) scale(-1, 1) rotate(-25.000000) translate(-3.825752, -7.671298) "></path>
+                            </g>
+                        </g>
+                    </g>
+                    <g id="beard" transform="translate(11.500000, 12.500000) scale(-1, 1) rotate(5.000000) translate(-11.500000, -12.500000) translate(6.000000, 1.000000)">
+                        <g id="Group-2">
+                            <g id="Group" transform="translate(5.761535, 10.711309) rotate(-25.000000) translate(-5.761535, -10.711309) translate(2.413709, 3.211309)" stroke-width="0.5">
+                                <path d="M0.956521739,3 C5.61797819,3 5.73913043,13 5.73913043,13" id="Path-2" transform="translate(3.347826, 8.000000) scale(-1, 1) rotate(-20.000000) translate(-3.347826, -8.000000) "></path>
+                                <path d="M0.956521739,2 C5.61797819,2 5.73913043,12 5.73913043,12" id="Path-2" transform="translate(3.347826, 7.000000) scale(-1, 1) rotate(-25.000000) translate(-3.347826, -7.000000) "></path>
+                            </g>
+                            <g id="Group" transform="translate(5.595083, 10.958982) rotate(-25.000000) translate(-5.595083, -10.958982) translate(1.768996, 2.958982)" stroke-width="0.5">
+                                <path d="M1.09307202,3.28769901 C6.41998454,3.28769901 6.55843214,14.2466957 6.55843214,14.2466957" id="Path-2" transform="translate(3.825752, 8.767197) scale(-1, 1) rotate(-20.000000) translate(-3.825752, -8.767197) "></path>
+                                <path d="M1.09307202,2.19179934 C6.41998454,2.19179934 6.55843214,13.150796 6.55843214,13.150796" id="Path-2" transform="translate(3.825752, 7.671298) scale(-1, 1) rotate(-25.000000) translate(-3.825752, -7.671298) "></path>
+                            </g>
+                            <g id="Group" transform="translate(5.595083, 11.958982) rotate(-30.000000) translate(-5.595083, -11.958982) translate(1.768996, 3.958982)" stroke-width="0.5">
+                                <path d="M1.09307202,3.28769901 C6.41998454,3.28769901 6.55843214,14.2466957 6.55843214,14.2466957" id="Path-2" transform="translate(3.825752, 8.767197) scale(-1, 1) rotate(-20.000000) translate(-3.825752, -8.767197) "></path>
+                                <path d="M1.09307202,2.19179934 C6.41998454,2.19179934 6.55843214,13.150796 6.55843214,13.150796" id="Path-2" transform="translate(3.825752, 7.671298) scale(-1, 1) rotate(-25.000000) translate(-3.825752, -7.671298) "></path>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+                <rect id="Rectangle-2" stroke="#000000" fill="#000000" x="13" y="54.5" width="8.5" height="2"></rect>
+                <g id="monocle" transform="translate(20.000000, 28.000000)" stroke="#000000">
+                    <ellipse id="Oval-2" fill="#FFFFFF" cx="14" cy="2.5" rx="2" ry="2.5"></ellipse>
+                    <path d="M13.66641,5.02688262 C11.8458939,8.99686198 10.2478479,11.8497283 8.87227194,13.5854816 C7.49669598,15.321235 4.73556409,17.9689428 0.588876246,21.5286051" id="Path-2" stroke-linecap="round" stroke-dasharray="1,1"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
