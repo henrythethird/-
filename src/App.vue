@@ -61,6 +61,7 @@ export default {
 
     ul ul {
         margin-left: 18px;
+        margin-bottom: 0;
     }
 
     p, blockquote, li {

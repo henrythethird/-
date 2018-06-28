@@ -11,9 +11,10 @@ export default {
   data () {
     return {
         articles: [
-            { title: 'error_propagation' },
-            { title: 'gin_testing' },
-            { title: 'go_testing' }
+            { title: 'kubernetes-core' },
+            { title: 'error-propagation' },
+            { title: 'gin-testing' },
+            { title: 'go-testing' }
         ]
     }  
   },

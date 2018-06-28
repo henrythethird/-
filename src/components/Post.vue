@@ -7,7 +7,9 @@
 <script>
 import axios from 'axios'
 import highlight from 'highlight.js'
+// eslint-disable-next-line
 import _ from 'highlight.js/styles/default.css'
+// eslint-disable-next-line
 import ___ from 'highlight.js/styles/tomorrow-night-blue.css'
 
 export default {
@@ -20,12 +22,12 @@ export default {
       }
   },
   mounted () {
-      axios.get('/blog/' + this.title + '.html')
+      axios.get('/blog/published/' + this.title + '.html')
         .then(({data}) => {
             this.article = data
             
             setTimeout(this.refreshSyntax, 50)
-        }).catch((e) => {
+        }).catch(() => {
             this.error = true
         })
         
