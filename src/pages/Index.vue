@@ -1,23 +1,15 @@
 <template>
     <section>
-        <Preview v-for="(article, idx) in articles" :title="article.title" :key="idx" />
+        <Preview v-for="(article, idx) in articles" :title="article.name" :key="idx" />
     </section>
 </template>
 <script>
 import Preview from '@/components/Preview'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'Index',
-  data () {
-    return {
-        articles: [
-            { title: 'kubernetes-core' },
-            { title: 'error-propagation' },
-            { title: 'gin-testing' },
-            { title: 'go-testing' }
-        ]
-    }  
-  },
+  computed: mapGetters(['articles']),
   components: { Preview }
 }
 </script>

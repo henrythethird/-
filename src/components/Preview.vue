@@ -28,7 +28,7 @@ export default {
 
         .post {
             max-height: 600px;
-            overflow: hidden;
+            overflow-y: hidden;
         }
     }
 

@@ -1,12 +1,12 @@
 <template>
     <main>
-        <article class="post" ref="post" v-html="article"></article>
+        <article class="post" ref="post" v-html="articleLookup(title).content"></article>
         <p v-if="error">Couldn't find the article :-(</p>
     </main>
 </template>
 <script>
-import axios from 'axios'
 import highlight from 'highlight.js'
+import { mapGetters } from 'vuex'
 // eslint-disable-next-line
 import _ from 'highlight.js/styles/default.css'
 // eslint-disable-next-line
@@ -22,16 +22,10 @@ export default {
       }
   },
   mounted () {
-      axios.get('/blog/published/' + this.title + '.html')
-        .then(({data}) => {
-            this.article = data
-            
-            setTimeout(this.refreshSyntax, 50)
-        }).catch(() => {
-            this.error = true
-        })
-        
-        
+    this.refreshSyntax()
+  },
+  computed: {
+      ...mapGetters(['articleLookup'])
   },
   methods: {
       refreshSyntax () {

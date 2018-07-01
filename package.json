@@ -3,12 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "cache": "node src/prepare/index.js",
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build --dest docs && git checkout docs/CNAME",
+    "build": "npm run cache && vue-cli-service build --dest docs && git checkout docs/CNAME",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "axios": "^0.18.0",
     "highlight.js": "^9.12.0",
     "vue": "^2.5.16",
     "vue-router": "^3.0.1",
