@@ -1,10 +1,13 @@
 <template>
-    <router-link class="preview" :to="{ name: 'detail', params: { title } }">
-        <Post :title="title" class="post" />
-        <div class="after">
-            <button class="button">Continue Reading</button>
-        </div>
-    </router-link>
+    <div class="preview">
+        <router-link :to="{ name: 'detail', params: { title } }">
+            <Post :title="title" class="post" />
+            <div class="after">
+                <button class="button">Continue Reading</button>
+            </div>
+        </router-link>
+        <hr>
+    </div>
 </template>
 <script>
 import Post from '@/components/Post'
@@ -18,17 +21,33 @@ export default {
 <style scoped lang="scss">
     .preview {
         display: block;
-        border-bottom: 1px solid #f0f0f0;
-        padding-bottom: 30px;
+        padding: 60px 0;
         margin-bottom: 30px;
-
-        &:last-child {
-            border: 0;
-        }
 
         .post {
             max-height: 600px;
             overflow-y: hidden;
+        }
+
+        hr {
+            position: absolute;
+            left: 0;
+            right: 0;
+            width: auto;
+            height: 1px;
+            margin: 4em 0;
+        }
+
+        &:first-child {
+            padding-top: 0
+        }
+
+        &:last-child {
+            padding-bottom: 0;
+            
+            hr {
+                display: none;
+            }
         }
     }
 

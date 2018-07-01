@@ -49,10 +49,6 @@ export default {
     a {
         transition: color 100ms ease-in-out;
         cursor: pointer;
-
-        &:hover {
-            color: #008AFF;
-        }
     }
 
     ul, ol {
@@ -84,6 +80,10 @@ export default {
             bottom: 0;
             background-color: #008AFF;
         }
+    }
+
+    hr {
+
     }
 
     h1, h2, h3, h4, h5, h6, p, blockquote, hr, pre, ul, ol {
