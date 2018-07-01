@@ -10,7 +10,7 @@ import { mapGetters } from 'vuex'
 // eslint-disable-next-line
 import _ from 'highlight.js/styles/default.css'
 // eslint-disable-next-line
-import ___ from 'highlight.js/styles/tomorrow-night-blue.css'
+import ___ from 'highlight.js/styles/vs2015.css'
 
 export default {
   name: 'Post',
@@ -46,7 +46,12 @@ export default {
         }
 
         pre > code, pre > code *  {
-            font-family: 'Courier New', Courier, monospace;
+            font-family: 'Source Code Pro', 'Courier New', Courier, monospace;
+        }
+
+        pre > code {
+            border-radius: 6px;
+            padding: 20px 24px;
         }
 
         .references * {
