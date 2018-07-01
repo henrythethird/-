@@ -55,12 +55,12 @@ export default {
         }
     }
 
-    ul {
-        margin-left: 10px;
+    ul, ol {
+        padding-left: 20px;
     }
 
-    ul ul {
-        margin-left: 18px;
+    ul ul, ol ol {
+        padding-left: 18px;
         margin-bottom: 0;
     }
 
@@ -78,7 +78,7 @@ export default {
         &::before {
             content: "";
             position: absolute;
-            left: -8px;
+            left: 0;
             width: 8px;
             top: 0;
             bottom: 0;
@@ -86,7 +86,7 @@ export default {
         }
     }
 
-    h1, h2, h3, h4, h5, h6, p, blockquote, hr, pre, ul {
+    h1, h2, h3, h4, h5, h6, p, blockquote, hr, pre, ul, ol {
         margin-bottom: 1em;
     }
 
