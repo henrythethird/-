@@ -50,7 +50,7 @@ $ 10! = 10 * 9 * 8 * ... * 2 * 1 = 3'628'800
 <p>
     Without further ado we setup our <b>main.go</b>, which looks as follows
 </p>
-<pre><code>// file: main.go
+<pre><code class="go">// file: main.go
 
 package main
 
@@ -72,7 +72,7 @@ package main
     <b>factorial</b> function. <b>0! = 1</b> is a special value of this function.
     Let's start there
 </p>
-<pre><code>// file: main_test.go
+<pre><code class="go">// file: main_test.go
 
 package main
 
@@ -83,9 +83,9 @@ import (
 func TestZero(t *testing.T) {
     res := factorial(0)
 
-	if 1 != res {
-		t.Errorf("Expected 0! to be 1, got %d", res)
-	}
+    if 1 != res {
+        t.Errorf("Expected 0! to be 1, got %d", res)
+    }
 }
 </code></pre>
 <p>
@@ -101,7 +101,7 @@ FAIL    test [build failed]
     as possible to make our tests pass. We adapt out <b>main.go</b> as 
     follows
 </p>
-<pre><code>// file: main.go
+<pre><code class="go">// file: main.go
 // ...
 
 func factorial(num int) int {
@@ -123,7 +123,7 @@ FAIL    test      0.006s
     blanks. In other words, our test actually checks the functionality instead of
     giving us false positives. Let's fix that really quick
 </p>
-<pre><code>// file: main.go
+<pre><code class="go">// file: main.go
 // ...
 
 func factorial(num int) int {
@@ -141,7 +141,7 @@ ok      test      0.006s
     for now. Phew! Let's keep the momentum and move to the next value. <b>1! = 1</b> already
     works - following the protocol, we first make it fail
 </p>
-<pre><code>// file: main_test.go
+<pre><code class="go">// file: main_test.go
 // ...
 
 func TestOne(t *testing.T) {
@@ -154,7 +154,7 @@ func TestOne(t *testing.T) {
 <p>
     And fix it again
 </p>
-<pre><code>// file: main_test.go
+<pre><code class="go">// file: main_test.go
 // ...
 
 func TestOne(t *testing.T) {
@@ -167,7 +167,7 @@ func TestOne(t *testing.T) {
 <p>
     For the next value we'll add a more generic test case
 </p>
-<pre><code>// file: main_test.go
+<pre><code class="go">// file: main_test.go
 // ...
 
 func TestN(t *testing.T) {
@@ -190,7 +190,7 @@ func TestN(t *testing.T) {
 <p>
     Which fails. Now the corresponding functionality
 </p>
-<pre><code>// file: main.go
+<pre><code class="go">// file: main.go
 
 func factorial(num int) int {
     if num <= 1 {
@@ -205,7 +205,7 @@ func factorial(num int) int {
     the current implementation with the test for <b>n = 3</b>. The test can now
     be extended as such
 </p>
-<pre><code>// file: main_test.go
+<pre><code class="go">// file: main_test.go
 // ...
 
 func TestN(t *testing.T) {
@@ -226,7 +226,7 @@ func TestN(t *testing.T) {
 }
 </code></pre>
 <p><span style="color: red">Red</span>. Now for the actual code</p>
-<pre><code>// file: main.go
+<pre><code class="go">// file: main.go
 func factorial(num int) int {
     if num &lt;= 1 {
         return 1
