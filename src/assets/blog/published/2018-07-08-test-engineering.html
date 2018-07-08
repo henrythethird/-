@@ -1,0 +1,179 @@
+<date>July 8, 2018</date>
+<h2>Test Engineering</h2>
+<p>
+    Writing tests is a common practice, especially for firms that leverage
+    continuous delivery. With this article I'd like to explain some 
+    methods that can be used to generate test cases. The following
+    methods are covered in the scope of the post
+</p>
+<ul>
+    <li>Equivalence partitioning and boundary values</li>
+    <li>State transitions</li>
+    <li>Path testing</li>
+</ul>
+<p>
+    Let's dive into the details of each method.
+</p>
+
+<h3>Partitions and Boundaries</h3>
+<p>
+    Similar to mathematical functions, in programming a function maps
+    inputs from a given domain <b>X</b> to a codomain <b>Y</b>. 
+    <b>Equivalence Partitioning</b> (EP) is a method to split the domain 
+    <b>X</b> into multiple partitions that exhibit the same behaviour.
+    For each partition a single test case is created, thus creating a
+    kind of <em>Partition Coverage</em>.
+</p>
+<p>
+    An example will shed light on the methodology
+</p>
+<pre><code class="go">func CalcPrice(amount uint) {
+    if amount > 100 {
+        return 10
+    }
+
+    if amount > 50 {
+        return 11
+    }
+
+    if amount > 10 {
+        return 15
+    }
+
+    return 20
+}</code></pre>
+<p>
+    There are four partitions to this <b>CalcPrice</b> function
+</p>
+<ol>
+    <li>The range from 100 to infinity <b>(100, &infin;)</b></li>
+    <li>The range 50 to 100 <b>(50, 100]</b></li>
+    <li>The range 10 to 50 <b>(10, 50]</b></li>
+    <li>The range up to 10 <b>[0, 10]</b></li>
+</ol>
+<p>
+    EP now recommends to cover each of the partitions in one test.
+    <b>Boundary Value Analysis</b> (BVA) extends this definition
+    to also include the lower and upper values of the boundaries.
+    The reasoning behind this is simple. There are usually a lot
+    of issues with the boundaries, since the ranges can either
+    be openend or closed on either side.
+</p>
+<p>
+    BVA adds another 8 tests to the list: <em>UINT_MAX, 101, 
+    100, 51, 50, 11, 10, 0</em>. Together with EP that results
+    in 12 tests, giving a reasonable coverage.
+</p>
+
+<h3>State Transitions</h3>
+<p>
+    Virtually all systems that we design contain some kind of
+    state and necessarily also some mechanism to alter that state. 
+    In state trainsition analysis, all possible states of a single 
+    component and their transitions from on to another are graphed.
+</p>
+<p>
+    Let's take the example of a traffic light. There are four
+    different states: <b>Yellow Flahsing</b>, <b>Red</b>, 
+    <b>Yellow</b>, <b>Green</b>. <b>Yellow Flashing</b> depicts the
+    base state. Together with these states, there are six allowed transitions:
+</p>
+<ul>
+    <li><b>Yellow Flashing</b> &rarr; <b>Red</b></li>
+    <li><b>Red</b> &rarr; <b>Yellow</b></li>
+    <li><b>Yellow</b> &rarr; <b>Green</b></li>
+    <li><b>Green</b> &rarr; <b>Yellow</b></li>
+    <li><b>Yellow</b> &rarr; <b>Red</b></li>
+    <li><b>Red</b> &rarr; <b>Yellow Flashing</b></li>
+</ul>
+<p>
+    When testing state transitions, there should be tests for 
+    each transition, be it valid or invalid. The tests are to assert
+    that no illegal transitions take place and that the system
+    behaves according to the graph.
+</p>
+
+<h3>Path Testing</h3>
+<p>
+    <b>Path testsing</b> is one possibility of making sure that the code we've
+    written works as expected. Let's first have a look on how we can measure
+    the completeness of our tests.
+</p>
+<p>
+    A measurement of the code that has been tested
+    is commonly referred to as <b>Code Coverage</b>.
+    There are three different strategies of analyzing code coverage
+</p>
+<ul>
+    <li>
+        <b>Statement Coverage</b> - percentage of statements reached
+    </li>
+    <li>
+        <b>Branch Coverage</b> - percentage of conditional decisions reached 
+    </li>
+    <li>
+        <b>Path Coverage</b> - percentage of paths covered
+    </li>
+</ul>
+<p>
+    The further down we go in the list, the more tests there are to write.
+    This simple example illustrates the three types
+</p>
+<pre><code class="go">func CalculateValue(withVat bool, amount uint) {
+    var calcPrice
+
+    if amount > 10 {
+        calcPrice = 50
+    } else if amount > 20 {
+        // Unreachable code
+    } else {
+        calcPrice = 55
+    }
+
+    if withVat {
+        calcPrice *= 1.08
+    }
+
+    return amount * calcPrice
+}
+</code></pre>
+<p>
+    Now <em>100% statement coverage</em> would require merely <em>two tests</em>.
+    One for <b>amount &gt; 10</b> and one for <b>amount &lt; 10</b>, while 
+    keeping <b>withVat = true</b> for both.
+    These two tests effectively call <em>100%</em> of the statements.
+</p>
+<p>
+    <em>100% branch coverage</em> requires that possible scenario in a 
+    branch is tested at least once. We'd also write <em>two tests</em>. One for
+    <b>amount &gt; 10 &amp; withVat = true</b> and one <b>amount &lt; 10 
+    &amp; withVat = false</b>. We'd also notice that the branch 
+    <b>amount > 20</b> in the above code can never be reached, thus 
+    potentially finding a bug.
+</p>
+<p>
+    <em>100% path coverage</em> is more exact and thus requires more
+    testing effort. For this scenario we'd need <em>four tests</em> 
+    (ignoring the <b>amount &gt; 20</b> problem we've already detected)
+</p>
+<ol>
+    <li><b>amount &gt; 10 &amp; withVat = true</b></li>
+    <li><b>amount &lt; 10 &amp; withVat = true</b></li>
+    <li><b>amount &gt; 10 &amp; withVat = false</b></li>
+    <li><b>amount &lt; 10 &amp; withVat = false</b></li>
+</ol>
+<p>
+    The measurement of path coverage is thus the most thorough and 
+    accurate, yet also the most costly to reach.
+</p>
+<p>
+    <b>Path testing</b> is the practice of reaching a high <b>path coverage</b>.
+    In this methodology, tests are extracted according to all the paths that 
+    lead through our code.
+</p>
+
+<h3>Conclusion</h3>
+<p>
+    The three methods above should give the reader a starting point
+    of how tests can be engineered. The list is by no means complete.
+</p>
