@@ -19,7 +19,7 @@
     In the following sections we'll explore some common methods for avoiding
     error handling. I like call these <b>anti-patterns</b> or <b>"don'ts"</b>
 </p>
-<h2>Method 1: Ignore</h2>
+<h3>Method 1: Ignore</h3>
 <p>
     The first anti-pattern in error handling - and this is <b>not</b> limited 
     to go - is ignoring them alltogether. Here is a piece of code that makes excessive
@@ -72,7 +72,7 @@ func doWork(host string) string {
     something different.
 </p>
 
-<h2>Method 2: Delegate</h2>
+<h3>Method 2: Delegate</h3>
 <p>
     Since go is <em>annoying</em> and doesn't let us propagate the errors to
     the next layer, we can just try replicate that missing feature ourselves.
@@ -137,7 +137,7 @@ panic: Get google.com: unsupported protocol scheme ""
     we improve that?
 </p>
 
-<h2>Improvements</h2>
+<h3>Improvements</h3>
 <p>
     Let's say Lisa is interacting with our system. Now she's getting an error 
     from our API. What Lisa would like to know is
@@ -195,7 +195,7 @@ panic: Failed to execute the request with host "google.com": Get google.com: uns
     changes she has to make to fix her code.
 </p>
 
-<h2>Conclusion</h2>
+<h3>Conclusion</h3>
 <p>
     There is no magic formula to getting error handling right. We
     just have consider the poor person interacting with our code.

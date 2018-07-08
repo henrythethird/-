@@ -7,7 +7,7 @@ const assetPath = path.join(__dirname, '..', 'assets', 'articles.json')
 const rd = fs.readdirSync(blogPath).filter((file) => {
         return file.endsWith('.html')
     }).map((file) => {
-        const name = file.substr(11, file.length - 5)
+        const name = file.substr(11, file.length - 16)
 
         return {
             name,

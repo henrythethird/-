@@ -29,7 +29,7 @@
     and self healing in a concise manner.
 </p>
 
-<h2>Manifests</h2>
+<h3>Manifests</h3>
 <p>
     The resources necessary for k8s are handled by <b>kubectl</b> - either manually 
     or via manifest files. For automation purposes manifest files are best 
@@ -61,7 +61,7 @@ spec:
     Now let's have a closer look at the types of resources we can create.
 </p>
 
-<h2>Pods</h2>
+<h3>Pods</h3>
 <p>
     <b>Pods</b> are the smallest unit of scheduling in k8s. They
     can contain multiple tighly coupled containers, that share all resources.
@@ -92,7 +92,7 @@ spec:
     number of pods running at a certain time, handle the life cycle of pods.
 </p>
 
-<h2>Deployments</h2>
+<h3>Deployments</h3>
 <p>
     <b>Deployments</b> exist to regulate the creation, destruction, and life cycle 
     management of pods. A deployment depicts the target state of the application. 
@@ -142,7 +142,7 @@ spec:
     unified way. <b>Services</b> provide exactly that abstraction.
 </p>
 
-<h2>Services</h2>
+<h3>Services</h3>
 <p>
     <b>Services</b> tie a group of pods together to a unified endpoint by using
     label selectors. They also represent addressable named units within a 
@@ -169,7 +169,7 @@ spec:
     to the internet we create a resource called <b>ingress</b>.
 </p>
 
-<h2>Ingress</h2>
+<h3>Ingress</h3>
 <p>
     To fulfill the promise of <em>multitenancy</em>, a k8s cluster needs to
     be able to route to multiple endpoints independently. This is where <b>ingress</b> 
@@ -208,7 +208,7 @@ spec:
     and routing to them from the internet. This covers the very basics of k8s.
 </p>
 
-<h2>Conclusion</h2>
+<h3>Conclusion</h3>
 <p>
     Kubernetes is a powerful orchestration tool. With the above mentioned resources we can
     already automate a service to run in our cluster. 
@@ -262,7 +262,7 @@ spec:
     For more information, refer to the k8s documentation<sup>5</sup>
 </p>
 <hr>
-<h2>References</h2>
+<h3>References</h3>
 <ol class="references">
     <li>
         <a target="_blank" href="https://kubernetes.io/docs/concepts/workloads/pods/pod/">

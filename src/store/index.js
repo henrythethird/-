@@ -10,7 +10,12 @@ export default new Vuex.Store({
     },
     getters: {
         articles: state => state.articles,
-        articleLookup: (state) => (key) => state.articles.find(article => article.name === key)
+        articleLookup: (state) => (key) => state.articles.find(article => article.name === key),
+        nextArticle: (state) => (key) => {
+            const articles = state.articles
+            const idx = articles.findIndex(article => article.name === key)
+            return articles[(idx + 1) % articles.length]
+        }
     },
     mutations: {
         

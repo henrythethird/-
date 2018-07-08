@@ -1,12 +1,13 @@
 <template>
-    <div class="preview">
+    <div class="preview" :class="{ small }">
         <router-link :to="{ name: 'detail', params: { title } }">
+            <span class="next">suggestion</span>
             <Post :title="title" class="post" />
             <div class="after">
                 <button class="button">Continue Reading</button>
             </div>
         </router-link>
-        <hr>
+        <hr class="all">
     </div>
 </template>
 <script>
@@ -14,28 +15,38 @@ import Post from '@/components/Post'
 
 export default {
   name: 'Preview',
-  props: ['title'],
+  props: ['title', 'small'],
   components: { Post }
 }
 </script>
 <style scoped lang="scss">
     .preview {
         display: block;
-        padding: 60px 0;
-        margin-bottom: 30px;
 
         .post {
             max-height: 600px;
             overflow-y: hidden;
         }
 
-        hr {
-            position: absolute;
-            left: 0;
-            right: 0;
-            width: auto;
-            height: 1px;
-            margin: 4em 0;
+        .next {
+            display: none;
+        }
+
+        &.small {
+            .next {
+                display: block;
+                text-transform: uppercase;
+                font-weight: 800;
+                opacity: 0.8;
+            }
+
+            .post {
+                max-height: 300px;
+
+                /deep/ date {
+                    display: none;
+                }
+            }
         }
 
         &:first-child {
@@ -45,7 +56,7 @@ export default {
         &:last-child {
             padding-bottom: 0;
             
-            hr {
+            hr.all {
                 display: none;
             }
         }

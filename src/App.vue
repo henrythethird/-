@@ -82,8 +82,19 @@ export default {
         }
     }
 
-    hr {
+    hr.all {
+        margin: 2em 0;
+        background-color: transparent;
 
+        &::before {
+            content: '';
+            background-color: #f0f0f0;
+            position: absolute;
+            left: 0;
+            right: 0;
+            width: auto;
+            height: 1px;
+        }
     }
 
     h1, h2, h3, h4, h5, h6, p, blockquote, hr, pre, ul, ol {

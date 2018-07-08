@@ -1,0 +1,253 @@
+<date>July 3, 2018</date>
+<h2>Testable Code</h2>
+<p>
+    Testing has quickly become a standard in the software industry. Writing
+    testable code is quite simple when following a few simple guidelines. This 
+    post aims at providing you with a framework for tackling that issue.
+</p>
+<p>
+    The <b>SOLID</b> principle plays a big role when it comes to writing
+    testable code. It is an important cornerstone for writing high quality and 
+    maintainable code. Together with <b>Dependency Injection</b> it lays the
+    foundation of testability. The following principles comprise the base recipe
+</p>
+<ul>
+    <li><b>S</b>ingle Responsibility</li>
+    <li><b>O</b>pen-Closed</li>
+    <li><b>L</b>iskov Substitution</li>
+    <li><b>I</b>nterface Segregation</li>
+    <li><b>D</b>ependency Inversion</li>
+    <li>Dependency Injection</li>
+</ul>
+<p>
+    The following sections explain the principles and how they apply to testability,
+    together with examples.
+</p>
+
+<h3>Single Responsibility</h3>
+<p>
+    The <b>Single Responsibility Principle</b> (SRP) states that every component of a system 
+    should have one and only one responsibility. Or as Robert C. Martin elegantly phrases it
+</p>
+<blockquote>A class should have only one reason to change</blockquote>
+<p>
+    An example of this could be 
+</p>
+<pre><code class="go">package export
+
+type ExportSvc interface {
+    Serialize(interface{}) (string, err)
+    WriteToFile(string) err
+}
+
+type Exp struct {}
+
+//Exp -> extends interface</code></pre>
+<p>
+    The <b>Exp</b> struct violates the SRP, because there are two scenarios that require a change in code.
+    Number one is the serialization mechanism. Maybe our API will accept json instead of yaml.
+    And number two is the access to the file system. Supposedly we switch from <em>write to disk</em>
+    to <em>Amazon S3</em>.
+</p>
+<p>
+    Increasingly complex systems to design and maintain imply an increasing number of 
+    reasons for change. SRP makes sure that these changes have a small footprint on 
+    our codebase. Increased testability of our code is thus reached by narrowing the 
+    scope and therefore the complexity of both our tests and their subjects.
+</p>
+
+<h3>Open-Closed</h3>
+<p>
+    The <b>Open-Closed</b> principle (OCP) states, according to it's creator, Bertran Meyer
+</p>
+<blockquote>
+    Software entities (classes, modules, functions, etc.) should be open for extension, 
+    but closed for modification
+</blockquote>
+<p>
+    Being <b>open</b> for extension means that the behaviour of a given component can be 
+    extended. In other words, the behaviour is not set in stone or written in such a manner 
+    that extending functionality infers copying of code.
+</p>
+<p>
+    When a component is called <b>closed</b> for modification it means that the public API of 
+    this component is fixed. Furthermore, no changes to the code are to be made.
+</p>
+<p>
+    Typically violations of this principle are verbose switch case statements or if-elseif structures. 
+    The following example illustrates a clear violation
+</p>
+<pre><code class="go">package main
+
+type Product struct{
+    Type string
+    //...
+}
+
+type PriceSvc struct{}
+
+func (_ *PriceSvc) GetVAT(p *Product) uint {
+    switch p.Type {
+    case 'food':
+        return 70
+    case 'other':
+        return 0
+    default:
+        return 80
+    }
+}</code></pre>
+<p>
+    Immagine this code is inside of a library you're using. Now in order to <em>extend</em> the behaviour of
+    the <b>GetVAT</b> method by another type, let's say <b>'furniture'</b>, the programmer has to either modify
+    the original code or overwrite it completely. When overwriting the code she potentially also has to write 
+    test cases for each scenario.
+</p>
+<p>
+    The example could be fixed by introducing a simple mapping table 
+    <b>type -> VAT</b>. When adding new product types, another entry
+    can be inserted to this table, leaving it open for extension. Furthermore, 
+    instead of writing a test case per product type, a single more generic
+    test can be written instead.
+</p>
+<p>
+    Software systems are subject to a good deal of change. The <b>OCP</b>, much like the SRP, helps
+    us to reduce the impact change has on our system. In practice the two principles go hand in hand, since
+    having complex paths in your code, a violation of OCP, normally also implies a violation of the SRP.
+</p>
+
+<h3>Liskov Substitution</h3>
+<p>
+    The <b>Liskov Substitution Principle</b> (LSP) states that if a type <b>S</b> is a subtype
+    of type <b>T</b>, then <b>S</b> must include all the same behaviours as <b>T</b>. This has
+    profound implications on inheritance in object oriented programming languages. The 
+    principle infers that function signatures stay equivalent in subtypes, as well as 
+    exceptions that are thrown.
+</p>
+<p>
+    <b>LSP</b> has way more implications, that won't be subject of this post. It is a broad 
+    topic that warrants an article on it's own.
+</p>
+
+<h3>Interface Segregation</h3>
+<p>
+    According to the <b>Interface Segregation Principle</b> (ISP), clients ought not be 
+    forced to depend on unused methods. In other words, keep your interfaces small and
+    segregated.
+</p>
+<p>
+    Violations of this principle are numerous and most often also infer a 
+    transgression against the SRP. Here the same example as for the SRP
+</p>
+<pre><code class="go">package main
+
+type ExportSvc interface {
+    Serialize(interface{}) (string, err)
+    WriteToFile(string) err
+}</code></pre>
+<p>
+    A possible violation of this is that a client might only need to depend 
+    on one the <b>Serialize</b> function. Using this interface, she's also 
+    aware of the <b>WriteToFile</b> function which creates an unnecessary 
+    dependency. Splitting the interface into two separate interafaces would
+    solve the violation, yet still violates the SRP.
+</p>
+<p>
+    When writing tests, ISP enables us to create smaller mock objects of
+    the dependencies we're injecting. Thus decreasing the lines of code
+    and the complexity.
+</p>
+
+<h3>Dependency Inversion</h3>
+<p>
+    Many programmers hardwire business layers with the utility layers,
+    making it harder to replace single components in a system. The 
+    <b>Dependency Inversion Principle</b> (DIP) is a way to solve that
+    problem. It states
+</p>
+<blockquote>
+    High level components should not depend upon low level components. Both should depend upon abstractions.
+</blockquote>
+<p>
+    This basically means that instead of leveraging concrete classes, we
+    should always rely on interfaces. Since our modules are loosely coupled,
+    the impact of this inversion principle is kept relatively low.
+    Go, compared to other programming languages, makes it easy to 
+    comply with the DIP, since interfaces are implemented implicitly.
+</p>
+<p>
+    Examples of this principles are trivial and hence omitted. When testing,
+    this principle allows us to inject minimalistic classes that correspond
+    to the interface, rather than laboriously overwriting functionality
+    and overloading our component tests.
+</p>
+
+<h3>Dependency Injection</h3>
+<p>
+    <b>Dependency Injection</b> (DI) is not part of the <b>SOLID</b> principles, yet
+    it has a significant impact on our design, and hence also our tests. Following
+    DI, the programmer injects the dependencies, rather than instantiating them
+    on the fly. This leads to the encapsulation of the construction logic, as well
+    as the flexible replacability of the dependencies.
+</p>
+<p>
+    The following example shows a violation of the DI practice
+</p>
+<pre><code class="go">type Dep1 interface{}
+type Dep2 interface{}
+
+type Svc struct {
+    dep1 *Dep1
+    dep2 *Dep2
+}
+
+func NewSvc() *Svc {
+    return &amp;Svc{
+        dep1: &amp;Dep1{}, 
+        dep2: &amp;Dep2{},
+    }
+}
+</code></pre>
+<p>
+    If one were to replace, for example, <b>Dep1</b> with another implementation,
+    the construction code would have to be altered. To satisfy DI we do the following
+</p>
+<pre><code class="go">type Dep1 interface{}
+type Dep2 interface{}
+
+type Svc struct {
+    dep1 *Dep1
+    dep2 *Dep2
+}
+
+func NewSvc(dep1 *Dep1, dep2 *Dep2) *Svc {
+    return &amp;Svc{
+        dep1: dep1, 
+        dep2: dep2,
+    }
+}
+</code></pre>
+<p>
+    This subtle change empowers the caller to provide the dependencies. Together with
+    the DIP, this leads to the complete independence of the implementation of a class.
+    Take a second to appreciate the value we've just gained.
+</p>
+<p>
+    To create unit tests, we have to remove all the dependencies from our component
+    to be able to test in isolation. DI, together with the DIP, allows us to do 
+    exactly that, thus it is vital to our design.
+</p>
+
+<h3>Conclusion</h3>
+<p>
+    The above stated principles all aim at reducing effort and complexity to write 
+    tests, as well as to maintain them. Here in short a few best practices to follow
+</p>
+<ul>
+    <li>Follow the five <b>SOLID</b> principles</li>
+    <li>Avoid global variables and functions</li>
+    <li>Inject dependencies, instead of constructing them or leveraging static or global methods</li>
+</ul>
+<p>
+    All these principles take time to adjust to, yet they ultimately lead to 
+    higher quality systems, making them a good investment.
+</p>
